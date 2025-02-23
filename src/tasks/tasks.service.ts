@@ -58,6 +58,21 @@ export class TasksService {
     
         return taskCounts;
     }
+
+
+    async deleteTask(userId: string, taskId: string): Promise<string> {
+        try {
+            const result = await this.TaskModel.deleteOne({ _id: taskId });    
+            if (result.deletedCount === 0) {
+                return "Task not found";
+            }    
+            return "Success";
+        } catch (error) {
+            console.error("Error deleting task:", error);
+            return "Failed to delete task";
+        }
+    }
+    
     
 
 

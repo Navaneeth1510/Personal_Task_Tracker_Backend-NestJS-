@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, Param, NotFoundException, Patch } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, NotFoundException, Patch, Delete, HttpStatus } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Tasks } from './schemas/tasks.schema';
 import { UsersService } from '../users/users.service';
@@ -41,5 +41,10 @@ export class TasksController {
     @Patch(':taskId/toggle-completion')
     async toggleTaskCompletion(@Param('taskId') taskId: string): Promise<Tasks> {
         return this.tasksService.toggleTaskCompletion(taskId);
+    }
+
+    @Delete(':taskId')
+    async deleteTask(@Param('taskId') taskId: string,@Param('userId') userId:string) {
+        return this.tasksService.deleteTask(userId, taskId);
     }
 }
